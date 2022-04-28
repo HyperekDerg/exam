@@ -37,5 +37,10 @@ if($json == null){
     $height = $obj->height;
 }
 $added_at = date("Y-m-d H:i:s");
+
+
+$queryadd  = "INSERT into `images` (name, picsum_id, imagefile, author, width, height, added_at)
+VALUES ('$name', '$picsum_id', '$imagefile', '$author', '$width', '$height', '$added_at')";
+$resultadd = mysqli_query($con, $queryadd);
     }
 ?>
