@@ -31,12 +31,14 @@
 
 
 <?php
+
+$id = $_GET['id'];
  $con = mysqli_connect("localhost","root","","exam");
  // Check connection
  if (mysqli_connect_errno()){
      echo 'Failed to connect to MySQL: ' . mysqli_connect_error();
  }
- $sql = "SELECT * FROM images";
+ $sql = "SELECT * FROM images where id = '$id'";
  $result = $con->query($sql);
  
  if ($result->num_rows > 0) { 
@@ -45,29 +47,30 @@
  ?>
 
 <div class="container mt-4">
-  <div class="row">
+
 
   <?php
             while($row = $result->fetch_assoc()) { ?>
+            <div class="card">
+            <img class="card-img-top"  src="./images/<?php echo $row['imagefile'] ?>" alt="<?php echo $row['imagefile'] ?>">
+            </div>
 
-    <div class="col-sm-3">
-    <div class="card mt-4" style="width: 18rem;">
-  <img class="card-img-top" style="height: 200px; width: 100%;" src="./images/<?php echo $row['imagefile'] ?>" alt="<?php echo $row['imagefile'] ?>">
+            <div class="card mt-4 mb-4">
+            <h5 class="card-header">Dane</h5>
   <div class="card-body">
-    <p class="card-text">Autor: <?php echo $row['author'] ?></p>
-    <p class="card-text">Nazwa: <?php echo $row['name'] ?></p>
-    <input type="submit" value="Więcej" class="btn btn-dark" form="<?php echo $row['id'] ?>">
-    <form action="./view.php" id="<?php echo $row['id'] ?>" method="get">
-    <input type="hidden" name="id" value="<?php echo $row['id'] ?>" form="<?php echo $row['id'] ?>">
-</form>
+    <h5 class="card-title">Nazwa: <?php echo $row['name'] ?></h5>
+    <p class="card-text">Picsum ID: <?php echo $row['picsum_id'] ?></p>
+    <p class="card-text">Wysokość: <?php echo $row['height'] ?></p>
+    <p class="card-text">Szerokość: <?php echo $row['width'] ?></p>
+    <p class="card-text">Dodano: <?php echo $row['added_at'] ?></p>
+    <a href="./index.php" class="btn btn-primary" style="width: 100%">Strona Główna</a>
   </div>
-</div>
-    </div>
+            </div>
 <?php 
             }
 ?>
     
-  </div>
+
 </div>
 
 <?php 
