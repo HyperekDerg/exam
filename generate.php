@@ -22,7 +22,6 @@ $pattern = '/ /';
 $replacement = '_';
 
 $imagefile = preg_replace($pattern, $replacement, $name).'.png';
-$myfile = fopen('./images/'.$imagefile, "w") ;
 
 $url = 'https://picsum.photos/id/'.$picsum_id.'/info';
 $json = file_get_contents($url);
@@ -35,6 +34,8 @@ if($json == null){
     $author = $obj->author;
     $width = $obj->width;
     $height = $obj->height;
+    $img_dw = $obj->download_url;
+    file_put_contents('./images/'.$imagefile, file_get_contents($img_dw));
 }
 $added_at = date("Y-m-d H:i:s");
 
