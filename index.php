@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -50,14 +52,17 @@
 
     <div class="col-sm-3">
     <div class="card mt-4" style="width: 18rem;">
-  <img class="card-img-top" src="./images/<?php echo $row['imagefile'] ?>" alt="<?php echo $row['imagefile'] ?>">
+  <img class="card-img-top" style="height: 200px; width: 100%;" src="./images/<?php echo $row['imagefile'] ?>" alt="<?php echo $row['imagefile'] ?>">
   <div class="card-body">
     <p class="card-text">Autor: <?php echo $row['author'] ?></p>
     <p class="card-text">Nazwa: <?php echo $row['name'] ?></p>
+    <input type="submit" value="Więcej" class="btn btn-dark" form="<?php echo $row['id'] ?>">
+    <form action="/view.php" id="<?php echo $row['id'] ?>" method="get">
+    <input type="hidden" name="id" value="<?php echo $row['id'] ?>" form="<?php echo $row['id'] ?>">
+</form>
   </div>
 </div>
     </div>
-
 <?php 
             }
 ?>
