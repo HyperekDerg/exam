@@ -37,8 +37,9 @@
          
           if (isset($_GET['page'])) {
             $page = $_GET['page'];
+         
           } else {
-            $page = 1;
+            header("Location: index.php?page=1");
           }
           $no_of_records_per_page = 8;
           $offset = ($page-1) * $no_of_records_per_page;
@@ -66,6 +67,7 @@
                      <p class="card-text">Nazwa: <?php echo $row['name'] ?></p>
                      <input type="submit" value="Więcej" class="btn btn-dark" form="<?php echo $row['id'] ?>">
                      <form action="./view.php" id="<?php echo $row['id'] ?>" method="get">
+                        <input type="hidden" name="page" value="<?php echo $_GET['page'] ?>" form="<?php echo $row['id'] ?>">
                         <input type="hidden" name="id" value="<?php echo $row['id'] ?>" form="<?php echo $row['id'] ?>">
                      </form>
                   </div>
