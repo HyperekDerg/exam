@@ -33,6 +33,9 @@
 <?php
 
 $id = $_GET['id'];
+$next_id = $id + 1;
+$prev_id = $id - 1;
+
  $con = mysqli_connect("localhost","root","","exam");
  // Check connection
  if (mysqli_connect_errno()){
@@ -40,7 +43,22 @@ $id = $_GET['id'];
  }
  $sql = "SELECT * FROM images where id = '$id'";
  $result = $con->query($sql);
- 
+
+ $sql2 = "SELECT id FROM images ORDER BY id DESC LIMIT 1";
+ $result2 = $con->query($sql2);
+
+ $max = $result2->fetch_assoc();
+ $max_id = $max['id'];
+ $min_id = 1;
+
+if ($next_id > $max_id) {
+  $next_id = $min_id;
+}
+
+if ($prev_id < $min_id) {
+  $prev_id = $max_id;
+}
+
  if ($result->num_rows > 0) { 
 
 
@@ -64,6 +82,10 @@ $id = $_GET['id'];
     <p class="card-text">Szerokość: <?php echo $row['width'] ?></p>
     <p class="card-text">Dodano: <?php echo $row['added_at'] ?></p>
     <a href="./index.php" class="btn btn-primary" style="width: 100%">Strona Główna</a>
+      <div class="mt-4 mb-4 ">
+        <a href="view.php?id=<?php echo $prev_id;?>" class="btn btn-danger mb-4 " style="width: 100%">Poprzednie zdjęcie</a>
+        <a href="view.php?id=<?php echo $next_id;?>" class="btn btn-success" style="width: 100%">Następne zdjęcie</a>
+      </div>
   </div>
             </div>
 <?php 
